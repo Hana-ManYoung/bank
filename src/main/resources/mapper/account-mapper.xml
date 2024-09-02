@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Account">
+    <select id="getAllAccounts" resultType="Account">
+        SELECT * FROM ACCOUNT
+    </select>
+    <select id="getAccountByAccNum" parameterType="String" resultType="Account">
+        SELECT * FROM ACCOUNT WHERE ACC_NUM = #{accNum}
+    </select>
+
+    <select id="getAccountByID" parameterType="String" resultType="Account">
+        SELECT * FROM ACCOUNT WHERE USER_ID = #{user_Id} AND ACC_TYPE='AT_01'
+    </select>
+
+    <insert id="registerAccount" parameterType="Account">
+        INSERT INTO ACCOUNT (
+            ACC_ID,
+            ACC_BALANCE,
+            ACC_DATE,
+            ACC_NUM,
+            ACC_PW,
+            ACC_TYPE,
+            USER_ID
+        ) VALUES (
+             ACCOUNT_SEQ.NEXTVAL,
+             #{acc_balance},
+             #{acc_date},
+             #{acc_num},
+             #{acc_pw},
+             #{acc_type},
+             #{acc_user_id}
+         )
+    </insert>
+
+</mapper>

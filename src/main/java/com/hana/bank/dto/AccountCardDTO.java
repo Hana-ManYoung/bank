@@ -1,0 +1,28 @@
+package com.hana.bank.dto;
+
+import com.hana.bank.model.Account;
+import com.hana.bank.model.AccountTransaction;
+import com.hana.bank.model.Card;
+import com.hana.bank.model.CardTransaction;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@Getter
+@Setter
+@RequiredArgsConstructor
+public class AccountCardDTO {
+    List<AccountTransactionWithCode> accountTransactions;
+    Account account;
+    List<CardTransaction> cardTransactions;
+    Card card;
+
+    public AccountCardDTO(List<AccountTransactionWithCode> accountTransactions, Account account, List<CardTransaction> cardTransactions, Card card) {
+        this.accountTransactions = accountTransactions;
+        this.account = account;
+        this.cardTransactions = cardTransactions;
+        this.card = card;
+    }
+}
