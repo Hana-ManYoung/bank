@@ -1,5 +1,7 @@
 package com.hana.bank.service;
 
+import com.hana.bank.dto.AccountDTO;
+import com.hana.bank.dto.RewardRequestDTO;
 import com.hana.bank.model.Account;
 import com.hana.bank.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,15 @@ public class AccountService {
         accountRepository.registerAccount(userID);
     }
 
-    public Account getAccountByUserID(String userId) {
+    public List<Account> getAccountByUserID(String userId) {
         return accountRepository.getAccountByID(userId);
+    }
+
+    public AccountDTO getChallengeAccount(String user_id) {
+        return accountRepository.getChallengeAccount(user_id);
+    }
+
+    public void updateReward(RewardRequestDTO rewardRequestDTO) {
+        accountRepository.updateReward(rewardRequestDTO);
     }
 }

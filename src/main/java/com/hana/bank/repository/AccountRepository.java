@@ -1,5 +1,7 @@
 package com.hana.bank.repository;
 
+import com.hana.bank.dto.AccountDTO;
+import com.hana.bank.dto.RewardRequestDTO;
 import com.hana.bank.model.Account;
 import com.hana.bank.model.Card;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +31,15 @@ public class AccountRepository {
         sql.insert("Card.registerCard", card);
     }
 
-    public Account getAccountByID(String userId) {
-        return (Account) sql.selectList("Account.getAccountByID", userId).get(0);
+    public List<Account> getAccountByID(String userId) {
+        return sql.selectList("Account.getAccountByID", userId);
+    }
+
+    public AccountDTO getChallengeAccount(String user_id) {
+        return (AccountDTO) sql.selectList("Account.getChallengeAccount", user_id).get(0);
+    }
+
+    public void updateReward(RewardRequestDTO rewardRequestDTO) {
+        sql.update("Account.updateReward", rewardRequestDTO);
     }
 }

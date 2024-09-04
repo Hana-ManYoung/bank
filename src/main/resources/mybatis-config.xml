@@ -9,5 +9,7 @@
         <typeAlias type="com.hana.bank.model.Card" alias="Card"/>
         <typeAlias type="com.hana.bank.model.CardTransaction" alias="CardTransaction"/>
         <typeAlias type="com.hana.bank.dto.AccountTransactionWithCode" alias="AccountTransactionWithCode"/>
+        <typeAlias type="com.hana.bank.dto.AccountDTO" alias="AccountDTO"/>
+        <typeAlias type="com.hana.bank.dto.RewardRequestDTO" alias="RewardRequestDTO"/>
     </typeAliases>
 </configuration>

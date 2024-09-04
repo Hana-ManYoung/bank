@@ -1,12 +1,18 @@
 package com.hana.bank.repository;
 
 import com.hana.bank.dto.AccountTransactionWithCode;
+import com.hana.bank.dto.RewardRequestDTO;
 import com.hana.bank.model.AccountTransaction;
+import com.hana.bank.util.DateInfo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -17,6 +23,21 @@ public class AccountTransactionRepository {
     }
 
     public List<AccountTransactionWithCode> getAllAccountTransactionByAccNumWithCode(String accNum) {
-        return sql.selectList("AccountTransaction.getAllAccountTransactionByAccNumWithCode", accNum);
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = currentDate.format(formatter);
+        Map<String, Object> params = new HashMap<>();
+        params.put("accNum", accNum);
+        params.put("date", date+"%");
+        return sql.selectList("AccountTransaction.getAllAccountTransactionByAccNumWithCode", params);
     }
+
+    public List<AccountTransactionWithCode> getAllChallengeTransactionByAccNumWithCode(String accNum) {
+        return sql.selectList("AccountTransaction.getAllChallengeTransactionByAccNumWithCode", accNum);
+    }
+
+    public void saveReward(RewardRequestDTO rewardRequestDTO) {
+        sql.insert("AccountTransaction.saveReward", rewardRequestDTO);
+    }
+
 }

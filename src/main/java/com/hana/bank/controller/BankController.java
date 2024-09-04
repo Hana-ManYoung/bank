@@ -42,7 +42,8 @@ public class BankController {
     }
 
     @GetMapping("/accountNum/{user_id}")
-    public Account getAccountByID(@PathVariable String user_id) {
+    public List<Account> getAccountByID(@PathVariable String user_id) {
         return accountService.getAccountByUserID(user_id);
     }
+
 }

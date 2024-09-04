@@ -15,13 +15,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountCardDTO {
     List<AccountTransactionWithCode> accountTransactions;
-    Account account;
+    List<AccountTransactionWithCode> accountChallengeTransactions;
+    List<Account> accountList;
     List<CardTransaction> cardTransactions;
     Card card;
 
-    public AccountCardDTO(List<AccountTransactionWithCode> accountTransactions, Account account, List<CardTransaction> cardTransactions, Card card) {
+    public AccountCardDTO(List<AccountTransactionWithCode> accountTransactions, List<AccountTransactionWithCode> accountChallengeTransactions, List<Account> accountList, List<CardTransaction> cardTransactions, Card card) {
         this.accountTransactions = accountTransactions;
-        this.account = account;
+        this.accountChallengeTransactions = accountChallengeTransactions;
+        this.accountList = accountList;
         this.cardTransactions = cardTransactions;
         this.card = card;
     }
