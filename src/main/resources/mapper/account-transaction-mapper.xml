@@ -35,4 +35,74 @@
     <select id="getTodayChallenge" resultType="AccountTransaction">
         select * from ACCOUNT_TRANSACTION where acc_t_date LIKE #{date} AND ACC_T_TYPE='ATT_03' AND ACC_NUM=(SELECT ACC_NUM FROM ACCOUNT WHERE USER_ID=#{user_id} AND ACC_TYPE='AT_03')
     </select>
+    <insert id="startSavingAT_01" parameterType="java.util.Map">
+        INSERT INTO ACCOUNT_TRANSACTION
+            (ACC_T_ID,
+             ACC_NUM,
+             ACC_T_AMOUNT,
+             ACC_T_BALANCE,
+             ACC_T_DATE,
+             ACC_T_TARGET,
+             ACC_T_TYPE)
+        VALUES
+            (ACCOUNT_TRANSACTION_SEQ.nextval,
+             (select acc_num from account where user_id=#{user_id} and ACC_TYPE='AT_01'),
+             #{amount},
+             (select acc_balance from account where user_id=#{user_id} and ACC_TYPE='AT_01'),
+             #{date},
+             '적금 챌린지',
+             'ATT_01')
+    </insert>
+    <insert id="startSavingAT_02" parameterType="java.util.Map">
+        INSERT INTO ACCOUNT_TRANSACTION
+            (ACC_T_ID,
+             ACC_NUM,
+             ACC_T_AMOUNT,
+             ACC_T_BALANCE,
+             ACC_T_DATE,
+             ACC_T_TARGET,
+             ACC_T_TYPE)
+        VALUES
+            (ACCOUNT_TRANSACTION_SEQ.nextval,
+            (select acc_num from account where user_id=#{user_id} and ACC_TYPE='AT_02'),
+            #{amount},
+            (select acc_balance from account where user_id=#{user_id} and ACC_TYPE='AT_02'),
+            #{date},
+            '적금 챌린지',
+            'ATT_01')
+    </insert>
+    <insert id="autoTransferAT_01" parameterType="ChallengeSaving">
+        INSERT INTO ACCOUNT_TRANSACTION
+            (ACC_T_ID,
+             ACC_NUM,
+             ACC_T_AMOUNT,
+             ACC_T_BALANCE,
+             ACC_T_DATE,
+             ACC_T_TARGET,
+             ACC_T_TYPE)
+        VALUES
+            (ACCOUNT_TRANSACTION_SEQ.nextval,
+             (select acc_num from account where user_id=#{user_id} and acc_type='AT_01'),-#{challenge_saving_monthly_amount},
+             (select acc_balance from account where user_id=#{user_id} and ACC_TYPE='AT_01'),
+             #{date},
+             '적금 챌린지',
+             'ATT_01')
+    </insert>
+    <insert id="autoTransferAT_02" parameterType="ChallengeSaving">
+        INSERT INTO ACCOUNT_TRANSACTION
+            (ACC_T_ID,
+             ACC_NUM,
+             ACC_T_AMOUNT,
+             ACC_T_BALANCE,
+             ACC_T_DATE,
+             ACC_T_TARGET,
+             ACC_T_TYPE)
+        VALUES
+            (ACCOUNT_TRANSACTION_SEQ.nextval,
+             (select acc_num from account where user_id=#{user_id} and acc_type='AT_02'), #{challenge_saving_monthly_amount},
+             (select acc_balance from account where user_id=#{user_id} and ACC_TYPE='AT_02'),
+             #{date},
+             '적금 챌린지',
+             'ATT_01')
+    </insert>
 </mapper>

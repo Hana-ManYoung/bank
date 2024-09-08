@@ -11,5 +11,7 @@
         <typeAlias type="com.hana.bank.dto.AccountTransactionWithCode" alias="AccountTransactionWithCode"/>
         <typeAlias type="com.hana.bank.dto.AccountDTO" alias="AccountDTO"/>
         <typeAlias type="com.hana.bank.dto.RewardRequestDTO" alias="RewardRequestDTO"/>
+        <typeAlias type="com.hana.bank.dto.AccountTotalDTO" alias="AccountTotalDTO"/>
+        <typeAlias type="com.hana.bank.model.ChallengeSaving" alias="ChallengeSaving"/>
     </typeAliases>
 </configuration>

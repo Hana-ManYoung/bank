@@ -18,4 +18,10 @@ public class DateInfo {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return currentDate.format(formatter);
     }
+
+    public static String getMonth() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        return currentDate.format(formatter);
+    }
 }

@@ -19,12 +19,16 @@ public class AccountCardDTO {
     List<Account> accountList;
     List<CardTransaction> cardTransactions;
     Card card;
+    AccountTotalDTO accountTotalIncome;
+    AccountTotalDTO accountTotalExpense;
 
-    public AccountCardDTO(List<AccountTransactionWithCode> accountTransactions, List<AccountTransactionWithCode> accountChallengeTransactions, List<Account> accountList, List<CardTransaction> cardTransactions, Card card) {
+    public AccountCardDTO(List<AccountTransactionWithCode> accountTransactions, List<AccountTransactionWithCode> accountChallengeTransactions, List<Account> accountList, List<CardTransaction> cardTransactions, Card card, AccountTotalDTO accountTotalIncome, AccountTotalDTO accountTotalExpense) {
         this.accountTransactions = accountTransactions;
         this.accountChallengeTransactions = accountChallengeTransactions;
         this.accountList = accountList;
         this.cardTransactions = cardTransactions;
         this.card = card;
+        this.accountTotalIncome = accountTotalIncome;
+        this.accountTotalExpense = accountTotalExpense;
     }
 }

@@ -43,4 +43,28 @@
         UPDATE ACCOUNT SET ACC_BALANCE=ACC_BALANCE+#{acc_t_amount} WHERE USER_ID=#{user_id} AND ACC_TYPE='AT_03'
     </update>
 
+    <select id="getTotalIncome" parameterType="String" resultType="AccountTotalDTO">
+        select ACC_NUM, SUM(ACC_T_AMOUNT) total from ACCOUNT_TRANSACTION where ACC_NUM=#{acc_num} AND ACC_T_DATE LIKE #{date} AND ACC_T_AMOUNT &gt; 0 GROUP BY ACC_NUM
+    </select>
+
+    <select id="getTotalExpense" parameterType="String" resultType="AccountTotalDTO">
+        select ACC_NUM, SUM(ACC_T_AMOUNT) total from ACCOUNT_TRANSACTION where ACC_NUM=#{acc_num} AND ACC_T_DATE LIKE #{date} AND ACC_T_AMOUNT &lt; 0 GROUP BY ACC_NUM
+    </select>
+    <update id="startSavingAT_01" parameterType="java.util.Map">
+        update account set acc_balance=acc_balance-#{amount} where acc_num=(select acc_num from account where user_id=#{user_id} and acc_type='AT_01')
+    </update>
+    <update id="startSavingAT_02" parameterType="java.util.Map">
+        update account set acc_balance=acc_balance+#{amount} where acc_num=(select acc_num from account where user_id=#{user_id} and acc_type='AT_02')
+    </update>
+
+    <update id="autoTransferAT_01" parameterType="ChallengeSaving">
+        update account set acc_balance = ACC_BALANCE-#{challenge_saving_monthly_amount} where acc_type='AT_01' and user_id=#{user_id};
+    </update>
+    <update id="autoTransferAT_02" parameterType="ChallengeSaving">
+        update account set acc_balance = ACC_BALANCE+#{challenge_saving_monthly_amount} where acc_type='AT_02' and user_id=#{user_id};
+    </update>
+
+    <select id="getAccountByUserID" parameterType="String" resultType="AccountDTO">
+        select * from account where user_id=#{user_id} and acc_type='AT_01'
+    </select>
 </mapper>

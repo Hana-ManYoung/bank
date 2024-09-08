@@ -1,11 +1,7 @@
 package com.hana.bank.controller;
 
-import com.hana.bank.dto.AccountCardDTO;
-import com.hana.bank.dto.AccountDTO;
-import com.hana.bank.dto.AccountTransactionWithCode;
-import com.hana.bank.dto.RewardRequestDTO;
+import com.hana.bank.dto.*;
 import com.hana.bank.model.Account;
-import com.hana.bank.model.AccountTransaction;
 import com.hana.bank.model.Card;
 import com.hana.bank.model.CardTransaction;
 import com.hana.bank.service.AccountService;
@@ -35,7 +31,9 @@ public class YoungController {
         List<AccountTransactionWithCode> accountTransactions = accountTransactionService.getAllAccountTransactionByAccNumWithCode(accountList.get(0).getAcc_num());
         List<AccountTransactionWithCode> accountChallengeTransactions = accountTransactionService.getAllChallengeTransactionByAccNumWithCode(accountList.get(2).getAcc_num());
         List<CardTransaction> cardTransactions = cardTransactionService.getAllCardTransactionsByCardNum(card.getCard_num());
-        return new AccountCardDTO(accountTransactions, accountChallengeTransactions, accountList, cardTransactions, card);
+        AccountTotalDTO accountTotalIncome = accountService.getTotalIncome(accountList.get(0).getAcc_num());
+        AccountTotalDTO accountTotalExpense = accountService.getTotalExpense(accountList.get(0).getAcc_num());
+        return new AccountCardDTO(accountTransactions, accountChallengeTransactions, accountList, cardTransactions, card, accountTotalIncome, accountTotalExpense);
     }
 
     @GetMapping("/challenge/account/{user_id}")
@@ -51,4 +49,17 @@ public class YoungController {
         accountTransactionService.saveReward(rewardRequestDTO);
     }
 
+    @PostMapping("/challenge/saving/start/{user_id}")
+    public void startSaving(@PathVariable String user_id, @RequestBody Map<String, Object> requestBody) {
+        int amount = (int) requestBody.get("amount");
+        accountService.startSavingAT_01(user_id, amount);
+        accountService.startSavingAT_02(user_id, amount);
+        accountTransactionService.startSavingAT_01(user_id, amount);
+        accountTransactionService.startSavingAT_02(user_id, amount);
+    }
+
+    @PostMapping("/parent/getChildInfo")
+    public List<AccountDTO> getChildInfo(@RequestBody List<RelationDTO> relations){
+        return accountService.getChildInfo(relations);
+    }
 }

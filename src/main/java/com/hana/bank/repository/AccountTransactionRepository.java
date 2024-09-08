@@ -3,6 +3,7 @@ package com.hana.bank.repository;
 import com.hana.bank.dto.AccountTransactionWithCode;
 import com.hana.bank.dto.RewardRequestDTO;
 import com.hana.bank.model.AccountTransaction;
+import com.hana.bank.model.ChallengeSaving;
 import com.hana.bank.util.DateInfo;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -40,4 +41,24 @@ public class AccountTransactionRepository {
         sql.insert("AccountTransaction.saveReward", rewardRequestDTO);
     }
 
+    public void startSavingAT_01(String user_id, int amount) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("user_id", user_id);
+        params.put("amount", -amount);
+        params.put("date", DateInfo.getTodayWithSecond());
+        sql.insert("AccountTransaction.startSavingAT_01", params);
+    }
+
+    public void startSavingAT_02(String user_id, int amount) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("user_id", user_id);
+        params.put("amount", amount);
+        params.put("date", DateInfo.getTodayWithSecond());
+        sql.insert("AccountTransaction.startSavingAT_02", params);
+    }
+
+    public void autoTransfer(ChallengeSaving challengeSaving) {
+        sql.insert("AccountTransaction.autoTransferAT_01", challengeSaving);
+        sql.insert("AccountTransaction.autoTransferAT_02", challengeSaving);
+    }
 }

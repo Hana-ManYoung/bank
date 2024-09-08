@@ -1,11 +1,9 @@
 package com.hana.bank.controller;
 
-import com.hana.bank.model.Account;
-import com.hana.bank.model.AccountTransaction;
-import com.hana.bank.model.Card;
-import com.hana.bank.model.CardTransaction;
+import com.hana.bank.model.*;
 import com.hana.bank.service.AccountService;
 import com.hana.bank.service.AccountTransactionService;
+import com.hana.bank.service.AutoTransferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +17,7 @@ import java.util.List;
 public class BankController {
     private final AccountService accountService;
     private final AccountTransactionService accountTransactionService;
+    private final AutoTransferService autoTransferService;
 
     @GetMapping("/account/all")
     public List<Account> getAllAccounts() {
@@ -46,4 +45,11 @@ public class BankController {
         return accountService.getAccountByUserID(user_id);
     }
 
+    @PostMapping("/account/autoTransfer")
+    public ResponseEntity<String> handleAutoTransfer(@RequestBody List<ChallengeSaving> challengeSavingList) {
+        autoTransferService.handleAutoTransfer(challengeSavingList);
+
+        // 적절한 응답을 반환합니다.
+        return ResponseEntity.ok("적금 처리 완료");
+    }
 }

@@ -29,4 +29,11 @@ public class AccountTransactionService {
         accountTransactionRepository.saveReward(rewardRequestDTO);
     }
 
+    public void startSavingAT_01(String user_id, int amount) {
+        accountTransactionRepository.startSavingAT_01(user_id, amount);
+    }
+
+    public void startSavingAT_02(String user_id, int amount) {
+        accountTransactionRepository.startSavingAT_02(user_id, amount);
+    }
 }

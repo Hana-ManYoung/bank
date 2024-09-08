@@ -1,12 +1,16 @@
 package com.hana.bank.service;
 
 import com.hana.bank.dto.AccountDTO;
+import com.hana.bank.dto.AccountTotalDTO;
+import com.hana.bank.dto.RelationDTO;
 import com.hana.bank.dto.RewardRequestDTO;
 import com.hana.bank.model.Account;
 import com.hana.bank.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Relation;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,5 +39,29 @@ public class AccountService {
 
     public void updateReward(RewardRequestDTO rewardRequestDTO) {
         accountRepository.updateReward(rewardRequestDTO);
+    }
+
+    public AccountTotalDTO getTotalIncome(String acc_num) {
+        return accountRepository.getTotalIncome(acc_num);
+    }
+
+    public AccountTotalDTO getTotalExpense(String acc_num) {
+        return accountRepository.getTotalExpense(acc_num);
+    }
+
+    public void startSavingAT_01(String user_id, int amount) {
+        accountRepository.startSavingAT_01(user_id, amount);
+    }
+
+    public void startSavingAT_02(String user_id, int amount) {
+        accountRepository.startSavingAT_02(user_id, amount);
+    }
+
+    public List<AccountDTO> getChildInfo(List<RelationDTO> relations) {
+        List<AccountDTO> accountList = new ArrayList<>();
+        for (RelationDTO relationDTO : relations) {
+            accountList.add(accountRepository.getAccountByUserID(relationDTO.getRelation_user_target()));
+        }
+        return accountList;
     }
 }
