@@ -62,4 +62,9 @@ public class YoungController {
     public List<AccountDTO> getChildInfo(@RequestBody List<RelationDTO> relations){
         return accountService.getChildInfo(relations);
     }
+
+    @PostMapping("/send/pocketMoney")
+    public void sendPocketMoney(@RequestBody RequestPocketMoneyDTO requestPocketMoneyDTO) {
+        accountService.sendPocketMoney(requestPocketMoneyDTO);
+    }
 }

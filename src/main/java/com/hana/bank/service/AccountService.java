@@ -1,9 +1,6 @@
 package com.hana.bank.service;
 
-import com.hana.bank.dto.AccountDTO;
-import com.hana.bank.dto.AccountTotalDTO;
-import com.hana.bank.dto.RelationDTO;
-import com.hana.bank.dto.RewardRequestDTO;
+import com.hana.bank.dto.*;
 import com.hana.bank.model.Account;
 import com.hana.bank.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -63,5 +60,9 @@ public class AccountService {
             accountList.add(accountRepository.getAccountByUserID(relationDTO.getRelation_user_target()));
         }
         return accountList;
+    }
+
+    public void sendPocketMoney(RequestPocketMoneyDTO requestPocketMoneyDTO) {
+        accountRepository.sendPocketMoney(requestPocketMoneyDTO);
     }
 }

@@ -2,6 +2,7 @@ package com.hana.bank.repository;
 
 import com.hana.bank.dto.AccountDTO;
 import com.hana.bank.dto.AccountTotalDTO;
+import com.hana.bank.dto.RequestPocketMoneyDTO;
 import com.hana.bank.dto.RewardRequestDTO;
 import com.hana.bank.model.Account;
 import com.hana.bank.model.Card;
@@ -84,5 +85,13 @@ public class AccountRepository {
 
     public AccountDTO getAccountByUserID(String user_id) {
         return (AccountDTO) sql.selectList("Account.getAccountByUserID", user_id).get(0);
+    }
+
+    public void sendPocketMoney(RequestPocketMoneyDTO requestPocketMoneyDTO) {
+        requestPocketMoneyDTO.setDate(DateInfo.getTodayWithSecond());
+        sql.update("Account.sendPocketMoney", requestPocketMoneyDTO);
+        sql.update("Account.receivePocketMoney", requestPocketMoneyDTO);
+        sql.insert("AccountTransaction.sendPocketMoney", requestPocketMoneyDTO);
+        sql.insert("AccountTransaction.receivePocketMoney", requestPocketMoneyDTO);
     }
 }

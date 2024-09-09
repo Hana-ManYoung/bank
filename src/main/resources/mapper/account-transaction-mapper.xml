@@ -105,4 +105,42 @@
              '적금 챌린지',
              'ATT_01')
     </insert>
+    <insert id="sendPocketMoney">
+        insert into account_transaction
+            (acc_t_id,
+             acc_num,
+             acc_t_amount,
+             acc_t_balance,
+             acc_t_date,
+             acc_t_target,
+             acc_t_type)
+        values(
+             account_transaction_seq.nextval,
+            (select acc_num from account where user_id=#{send_user} and acc_type='AT_01'),
+            -#{amount},
+            (select acc_balance from account where user_id=#{send_user} and acc_type='AT_01'),
+            #{date},
+            #{receive_user_name},
+            'ATT_01'
+              )
+    </insert>
+    <insert id="receivePocketMoney">
+        insert into account_transaction
+        (acc_t_id,
+         acc_num,
+         acc_t_amount,
+         acc_t_balance,
+         acc_t_date,
+         acc_t_target,
+         acc_t_type)
+        values(
+              account_transaction_seq.nextval,
+              (select acc_num from account where user_id=#{receive_user} and acc_type='AT_01'),
+              #{amount},
+              (select acc_balance from account where user_id=#{receive_user} and acc_type='AT_01'),
+              #{date},
+              #{send_user_name},
+              'ATT_01'
+          )
+    </insert>
 </mapper>

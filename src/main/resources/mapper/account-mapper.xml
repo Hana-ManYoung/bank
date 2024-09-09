@@ -67,4 +67,11 @@
     <select id="getAccountByUserID" parameterType="String" resultType="AccountDTO">
         select * from account where user_id=#{user_id} and acc_type='AT_01'
     </select>
+
+    <update id="sendPocketMoney" parameterType="java.util.Map">
+        update account set acc_balance=acc_balance-#{amount} where user_id=#{send_user} and acc_type='AT_01'
+    </update>
+    <update id="receivePocketMoney" parameterType="java.util.Map">
+        update account set acc_balance=acc_balance+#{amount} where user_id=#{receive_user} and acc_type='AT_01'
+    </update>
 </mapper>
