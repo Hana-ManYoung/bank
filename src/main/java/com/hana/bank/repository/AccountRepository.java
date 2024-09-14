@@ -54,14 +54,25 @@ public class AccountRepository {
         Map<String, String> params = new HashMap<>();
         params.put("acc_num", acc_num);
         params.put("date", DateInfo.getMonth()+"%");
-        return (AccountTotalDTO) sql.selectList("Account.getTotalIncome", params).get(0);
+
+        List<AccountTotalDTO> accountDTOS = sql.selectList("Account.getTotalIncome", params);
+
+        if(accountDTOS == null | accountDTOS.isEmpty()) {
+            return null;
+        }
+
+        return accountDTOS.get(0);
     }
 
     public AccountTotalDTO getTotalExpense(String acc_num) {
         Map<String, String> params = new HashMap<>();
         params.put("acc_num", acc_num);
         params.put("date", DateInfo.getMonth()+"%");
-        return (AccountTotalDTO) sql.selectList("Account.getTotalExpense", params).get(0);
+        List<AccountTotalDTO> accountDTOS = sql.selectList("Account.getTotalExpense", params);
+        if (accountDTOS == null | accountDTOS.isEmpty()) {
+            return null;
+        }
+        return accountDTOS.get(0);
     }
 
     public void startSavingAT_01(String user_id, int amount) {
