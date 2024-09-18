@@ -1,9 +1,6 @@
 package com.hana.bank.repository;
 
-import com.hana.bank.dto.AccountDTO;
-import com.hana.bank.dto.AccountTotalDTO;
-import com.hana.bank.dto.RequestPocketMoneyDTO;
-import com.hana.bank.dto.RewardRequestDTO;
+import com.hana.bank.dto.*;
 import com.hana.bank.model.Account;
 import com.hana.bank.model.Card;
 import com.hana.bank.model.ChallengeSaving;
@@ -104,5 +101,10 @@ public class AccountRepository {
         sql.update("Account.receivePocketMoney", requestPocketMoneyDTO);
         sql.insert("AccountTransaction.sendPocketMoney", requestPocketMoneyDTO);
         sql.insert("AccountTransaction.receivePocketMoney", requestPocketMoneyDTO);
+    }
+
+    public void sendMoney(SendMoneyDTO sendMoneyDTO) {
+        sql.update("Account.sendMoney", sendMoneyDTO);
+        sql.update("Account.receiveMoney", sendMoneyDTO);
     }
 }

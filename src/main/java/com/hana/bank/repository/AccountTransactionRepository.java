@@ -2,6 +2,7 @@ package com.hana.bank.repository;
 
 import com.hana.bank.dto.AccountTransactionWithCode;
 import com.hana.bank.dto.RewardRequestDTO;
+import com.hana.bank.dto.SendMoneyDTO;
 import com.hana.bank.model.AccountTransaction;
 import com.hana.bank.model.ChallengeSaving;
 import com.hana.bank.util.DateInfo;
@@ -60,5 +61,11 @@ public class AccountTransactionRepository {
     public void autoTransfer(ChallengeSaving challengeSaving) {
         sql.insert("AccountTransaction.autoTransferAT_01", challengeSaving);
         sql.insert("AccountTransaction.autoTransferAT_02", challengeSaving);
+    }
+
+    public void sendMoney(SendMoneyDTO sendMoneyDTO) {
+        System.out.println(sendMoneyDTO.toString());
+        sql.insert("AccountTransaction.sendMoney", sendMoneyDTO);
+        sql.insert("AccountTransaction.receiveMoney", sendMoneyDTO);
     }
 }

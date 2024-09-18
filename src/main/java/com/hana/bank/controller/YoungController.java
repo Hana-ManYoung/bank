@@ -65,6 +65,7 @@ public class YoungController {
 
     @PostMapping("/send/pocketMoney")
     public void sendPocketMoney(@RequestBody RequestPocketMoneyDTO requestPocketMoneyDTO) {
+        requestPocketMoneyDTO.setDate(DateInfo.getTodayWithSecond());
         accountService.sendPocketMoney(requestPocketMoneyDTO);
     }
 }

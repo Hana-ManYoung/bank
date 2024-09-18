@@ -2,6 +2,7 @@ package com.hana.bank.service;
 
 import com.hana.bank.dto.AccountTransactionWithCode;
 import com.hana.bank.dto.RewardRequestDTO;
+import com.hana.bank.dto.SendMoneyDTO;
 import com.hana.bank.model.AccountTransaction;
 import com.hana.bank.repository.AccountTransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,9 @@ public class AccountTransactionService {
 
     public void startSavingAT_02(String user_id, int amount) {
         accountTransactionRepository.startSavingAT_02(user_id, amount);
+    }
+
+    public void sendMoney(SendMoneyDTO sendMoneyDTO) {
+        accountTransactionRepository.sendMoney(sendMoneyDTO);
     }
 }

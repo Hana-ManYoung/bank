@@ -74,4 +74,11 @@
     <update id="receivePocketMoney" parameterType="java.util.Map">
         update account set acc_balance=acc_balance+#{amount} where user_id=#{receive_user} and acc_type='AT_01'
     </update>
+
+    <update id="sendMoney" parameterType="SendMoneyDTO">
+        update account set acc_balance=acc_balance-#{amount} where user_id=#{sendId} and acc_type='AT_01'
+    </update>
+    <update id="receiveMoney" parameterType="SendMoneyDTO">
+        update account set acc_balance=acc_balance+#{amount} where user_id=#{targetId} and acc_type='AT_01'
+    </update>
 </mapper>

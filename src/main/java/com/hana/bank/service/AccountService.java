@@ -65,4 +65,8 @@ public class AccountService {
     public void sendPocketMoney(RequestPocketMoneyDTO requestPocketMoneyDTO) {
         accountRepository.sendPocketMoney(requestPocketMoneyDTO);
     }
+
+    public void sendMoney(SendMoneyDTO sendMoneyDTO) {
+        accountRepository.sendMoney(sendMoneyDTO);
+    }
 }

@@ -14,5 +14,6 @@
         <typeAlias type="com.hana.bank.dto.AccountTotalDTO" alias="AccountTotalDTO"/>
         <typeAlias type="com.hana.bank.model.ChallengeSaving" alias="ChallengeSaving"/>
         <typeAlias type="com.hana.bank.dto.RequestPocketMoneyDTO" alias="RequestPocketMoneyDTO"/>
+        <typeAlias type="com.hana.bank.dto.SendMoneyDTO" alias="SendMoneyDTO" />
     </typeAliases>
 </configuration>

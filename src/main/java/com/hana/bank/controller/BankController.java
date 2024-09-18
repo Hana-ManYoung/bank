@@ -1,9 +1,11 @@
 package com.hana.bank.controller;
 
+import com.hana.bank.dto.SendMoneyDTO;
 import com.hana.bank.model.*;
 import com.hana.bank.service.AccountService;
 import com.hana.bank.service.AccountTransactionService;
 import com.hana.bank.service.AutoTransferService;
+import com.hana.bank.util.DateInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +53,12 @@ public class BankController {
 
         // 적절한 응답을 반환합니다.
         return ResponseEntity.ok("적금 처리 완료");
+    }
+
+    @PostMapping("/sendMoney")
+    public void sendMoney(@RequestBody SendMoneyDTO sendMoneyDTO) {
+        sendMoneyDTO.setDate(DateInfo.getTodayWithSecond());
+        accountService.sendMoney(sendMoneyDTO);
+        accountTransactionService.sendMoney(sendMoneyDTO);
     }
 }

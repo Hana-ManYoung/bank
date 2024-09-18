@@ -124,7 +124,7 @@
             'ATT_01'
               )
     </insert>
-    <insert id="receivePocketMoney">
+    <insert id="receivePocketMoney" parameterType="SendMoneyDTO">
         insert into account_transaction
         (acc_t_id,
          acc_num,
@@ -142,5 +142,44 @@
               #{send_user_name},
               'ATT_01'
           )
+    </insert>
+
+    <insert id="sendMoney" parameterType="SendMoneyDTO">
+        insert into account_transaction
+        (acc_t_id,
+         acc_num,
+         acc_t_amount,
+         acc_t_balance,
+         acc_t_date,
+         acc_t_target,
+         acc_t_type)
+        values(
+          account_transaction_seq.nextval,
+          (select acc_num from account where user_id=#{sendId} and acc_type='AT_01'),
+          -#{amount},
+          (select acc_balance from account where user_id=#{sendId} and acc_type='AT_01'),
+          #{date},
+          #{targetName},
+          'ATT_01'
+      )
+    </insert>
+    <insert id="receiveMoney">
+        insert into account_transaction
+        (acc_t_id,
+         acc_num,
+         acc_t_amount,
+         acc_t_balance,
+         acc_t_date,
+         acc_t_target,
+         acc_t_type)
+        values(
+          account_transaction_seq.nextval,
+          (select acc_num from account where user_id=#{targetId} and acc_type='AT_01'),
+          #{amount},
+          (select acc_balance from account where user_id=#{targetId} and acc_type='AT_01'),
+          #{date},
+          #{sendName},
+          'ATT_01'
+      )
     </insert>
 </mapper>
